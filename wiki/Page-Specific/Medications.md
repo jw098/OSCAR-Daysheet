@@ -1,0 +1,2 @@
+# Confirm on close
+

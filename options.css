@@ -1,0 +1,292 @@
+body {
+  margin: 0;
+  padding-left: 15px;
+  padding-top: 53px;
+  font-family: Arial;
+  font-size: 12px;
+  color: rgb(48, 57, 66);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+  line-height: 1;
+  user-select: none;
+  cursor: default;
+}
+h1 {
+  font-size: 1.5em;
+  margin: 21px 0 13px;
+}
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.8em;
+  color: black;
+}
+
+h4 {
+  font-size: 1.1em;
+  margin-bottom: 0.8em;
+  color: black;
+}
+
+p {
+  margin: 0.65em 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 15px;
+  right: 0;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(white, white 40%, rgba(255, 255, 255, 0.92));
+}
+
+header,
+section {
+  min-width: 600px;
+  max-width: 850px;
+}
+section {
+  padding-left: 18px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+section h3 {
+  margin-left: -18px;
+}
+
+section h4 {
+  margin-left: -14px;
+}
+
+button {
+  /* -webkit-appearance: none; */
+  position: relative;
+
+  margin: 0 1px 0 0;
+  padding: 0 10px;
+  min-width: 4em;
+  min-height: 2em;
+
+  /* background-image: linear-gradient(#ededed, #ededed 38%, #dedede); */
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  outline: none;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.75);
+  color: #444;
+  /* text-shadow: 0 1px 0 rgb(240, 240, 240); */
+  font: inherit;
+
+  user-select: none;
+}
+
+input[type="text"] {
+  font-family: Arial;
+  font-size: 12px;
+  color: rgb(48, 57, 66);
+}
+
+.bcBillingButtonGroup:not(:last-child),
+.eChartButtonSingle:not(:last-child){
+  margin-bottom: 5px;
+  border: 1px solid grey;
+}
+
+input[type="text"].bcBillingButton_serviceCode1,
+.bcBillingButton_serviceCode2,
+.bcBillingButton_serviceCode3
+{
+  width: 80px;
+}
+
+.bcBillingButton_addon_label,
+.bcBillingButton_shortcuts_enabled{
+  margin-left: 25px;
+}
+
+.bcBillingButton_dxCode1,
+.bcBillingButton_dxCode2,
+.bcBillingButton_dxCode3
+{
+  width: 80px;
+}
+
+.bcBillingButton_dxCode1{
+  margin-left: 135px;
+}
+
+.ageBasedServiceCode{
+  /* width: 100px; */
+}
+
+
+
+.row {
+  margin: 5px 0px;
+}
+
+.greyoutRow1,
+.greyoutRow2,
+.greyoutBlock,
+.greyoutAll {
+  background-color: lightgrey;
+  color: grey;
+}
+
+.customFID {
+  width: 100px;
+  text-align: center;
+  /* color: transparent; */
+  /* color: red; */
+  /* text-shadow: 0 0 0 #000000; */
+}
+
+.customKey {
+  width: 80px;
+  text-align: center;
+  /* color: transparent; */
+  /* color: red; */
+  /* text-shadow: 0 0 0 #000000; */
+}
+
+.leadingDigits {
+  width: 50px;
+  text-align: center;
+}
+
+.customMeasureGroupName{
+  text-align: center;
+}
+
+
+/* input:checked{
+  background-color: darkgrey;
+} */
+
+/* 
+.shortcut{
+  margin-left: 14px;
+  background-color: darkgrey;
+  vertical-align: middle;
+} */
+
+.subRow1{
+  margin-left: 14px;
+  /* background-color: darkgrey; */
+  /* vertical-align: middle; */
+}
+
+.subRow2{
+  margin-left: 14px;
+  /* background-color: darkgrey; */
+  /* vertical-align: middle; */
+}
+
+
+/* shortcutLabel{
+  width: 200px;
+} */
+
+/* 
+label{
+  display: inline-block;
+  width: 300px;
+  vertical-align: middle;
+} */
+
+/* div[class*="shortcut"]>label + input[class*=customKey]{
+
+} */
+
+div[class*="row"]>label,
+div[class*="subRow1"]>label[class*="shortcutLabel"]{
+  display: inline-block;
+  width: 300px;
+  vertical-align: middle;
+}
+
+/* div[class*="buttonShortcut"]>label{
+  width: 100px;
+  display: inline-block;
+} */
+
+.enableButton{
+  margin-right: 97px;
+}
+
+.buttonShortcut {
+  display: inline-block;
+  /* width: 150px; */
+}
+
+
+.customButtonTitle{
+  margin-right: 100px;
+}
+
+#statusHeader {
+  color: #9d9d9d;
+  display: inline-block;
+  margin-left: 50px;
+}
+
+#saveHeader{
+  font-size: 0.8em;
+  margin-left: 200px;
+}
+
+#status {
+  /* position: fixed;
+  bottom: 0;
+  left: 15px;
+  right: 0; */
+  color: #9d9d9d;
+  display: inline-block;
+  margin-left: 50px;
+}
+
+#faq {
+  margin-top: 2em;
+}
+
+
+.customForce {
+  display: none;
+  width: 250px;
+}
+
+.warning{
+  color:white;
+  background-color: red;
+}
+
+.hide{
+  display: none;
+
+}
+
+.optionsUnsaved{
+  background-color: green;
+  color:white;
+}
+
+#globalEnable{
+  /* background-color: orange; */
+  border: 2px solid black;
+
+}
+
+.shortcutGroup{
+  border-left: 2px dotted blue;
+  height: 100%;
+  /* position:absolute; */
+  /* left: 480px; */
+  
+  /* float: right; */
+}
+

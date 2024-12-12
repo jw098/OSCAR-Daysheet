@@ -1,0 +1,76 @@
+
+table{
+    background-color: #efefef;
+ }
+
+
+ .MainTableTopRowRightColumn,
+ .MainTableTopRow{
+    background-color: #050505;
+ }
+
+.Cell{
+   background-color: #888;
+}
+
+/* html > body > div > form:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1):not(.Cell){
+   background-color: #efefef !important;
+} */
+
+table > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1):not(.Cell){
+   background-color: #efefef !important;
+}
+
+.NarrativeRes, .NormalRes, .AbnormalRes, .HiLoRes{
+   /* font-family: Helvetica, Arial, sans-serif;   */
+   font-size: 1.2em;
+}
+
+table[name ="tblDiscs"]{
+   font-size: 1.2em;
+}
+
+.NarrativeRes{
+   font-weight: normal;  
+}
+
+.NarrativeRes td, .NormalRes td, .AbnormalRes td, .HiLoRes td{
+   padding: 5px;
+}
+
+.Title2{
+   font-size: 9px !important;
+}
+
+/* .NormalRes, .AssignedRes{
+   background-color: #efefef;
+}
+
+.modal-card-body{
+   background-color: #f00"; 
+} */
+
+
+ 
+
+
+
+/* 
+    $(".NormalRes, .AssignedRes").css("background-color", "#efefef");
+    $(".modal-card-body").css("background-color", "#f00")
+        $(".MainTableTopRowRightColumn, .MainTableTopRowRightColumn, .MainTableTopRow").css("background-color", "#050505");
+
+$(".Cell").css("background-color", "#888");
+
+    // $("#tblDiscs").prev().css("background-color", "#efefef");
+    // $("#tblDiscs, #readerViewTable, #categoryList, #docViews").css("background-color", "#efefef");
+        $('table[name ="tblDiscs"]').css("background-color", "#efefef");
+        $("#tblDiscs").css("background-color", "#efefef");
+            $(".labReqDate").prev().prev().prev().css("background-color", "#efefef");
+    
+    $(".labReqDate").parent().parent().css("background-color", "#efefef");
+    
+    $(".labReqDate").css("color", "#000");
+    
+    $("#createLabel_309233").css("background-color", "#eee");
+*/

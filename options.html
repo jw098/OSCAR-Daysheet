@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OSCAR EMR Daysheet: Options</title>
+    <link rel="stylesheet" href="options.css" />
+    <script src="default_settings.js"></script>
+    <script src="contentscripts/utils.js"></script>
+    <script src="contentscripts/SaveDaysheet.js"></script>
+    <script src="options.js"></script>
+    <br>
+    <br>
+    <br>
+  </head>
+  <body>
+    <header>
+      <h1>OSCAR EMR Shortcuts        
+        <button id="saveHeader">Save</button>
+        <label class="warning hide" title="Conflicts only occur if the same keyboard shortcut is assigned to two different actions on the same page. There is no issue if the same shortcut appears on different pages. In case of conflicts, only one of the actions will be performed." >
+          WARNING: Shortcut conflict exists. 
+        </label>
+        <div id="statusHeader"></div>
+      </h1>
+    </header>
+
+    <section id = "globalEnable">
+      <h3>Enable/Disable this extension</h3>
+      <div class="row">
+        <input id="enabled" type="checkbox" />
+        <label for="enabled">Enabled</label>
+      </div>
+      <!-- <div class="row">
+        <button id="checkAllSettings" >Check all settings</button>
+        <button id="uncheckAllSettings" >Uncheck all settings</button>
+      </div>
+      <div class="row">
+        <button id="checkAllShortcuts" >Check all keyboard shortcuts</button>
+        <button id="uncheckAllShortcuts" >Uncheck all keyboard shortcuts</button>
+      </div> -->
+    </section>
+
+
+
+    <div id="allSettings">
+      <section>
+        <h3>Allergy</h3>
+        <div class="row">
+          <input id="allergyQuickAdd" type="checkbox" />
+          <label for="allergyQuickAdd">Buttons to quickly add allergies</label>
+        </div>
+      </section>
+    </div>
+
+
+
+    <div>
+      <button id="export" title="Exports the settings that are currently saved.">Export Settings</button>
+    </div>
+
+    <div> 
+      <input type="file" id="file" accept=".txt, .json">
+      <label id = "importWarning" class="warning hide" >
+        WARNING: Imported settings file is invalid.
+      </label>
+      <button id="import" title="Imports the uploaded settings file. Does not save.">Import Settings</button>
+    </div>
+
+    <div> 
+
+      <button id="save">Save</button>
+      <button id="restore">Restore Defaults</button>
+
+      <div id="status"></div>
+      <div id="faq"></div>
+    </div>
+  </body>
+</html>

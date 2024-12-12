@@ -1,0 +1,48 @@
+{
+    "name": "OSCAR EMR Save Daysheet",
+    "version": "0.1",
+    "manifest_version": 2,
+    "description": "Save the daysheet for OSCAR EMR.",
+    "permissions": [
+        "storage"
+    ],
+    "background": {
+        "scripts": [
+            "contentscripts/utils.js",
+            "default_settings.js",
+            "background.js"
+        ]
+      },
+    "icons":{
+        "48": "icons/notepad-icon.png",
+        "96": "icons/notepad-icon.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+          "id": "{56ddab07-f7e7-494e-b00e-22b2e6494cb9}"
+        }
+    },
+    "browser_action": {
+      "default_icon": {
+        "16": "icons/notepad-icon.png",
+        "32": "icons/notepad-icon.png"
+      },
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*/*/report/displayDaysheet.do*",
+                "*://*/*provider/appointmentprovideradminday.jsp*",
+                "*://*/*/provider/providercontrol.jsp?*"
+            ],
+            "js": [
+                "thirdparty/jquery3.1.0.min.js", 
+                "contentscripts/utils.js",
+                "contentscripts/SaveDaysheet.js"
+            ]
+        }
+      ]
+
+    
+}
