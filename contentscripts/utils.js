@@ -80,6 +80,13 @@ function getURLOrigin(){
 	return window.location.origin + '/' + firstUrlElement + '/';
 }
 
+function getURLOriginFromString(fullURL){
+	const  urlElements = (fullURL.split('/', 2));
+	const urlOrigin = urlElements.slice(0);
+	const firstUrlElement = (urlElements.slice(1));
+	return urlOrigin + '/' + firstUrlElement + '/';
+}
+
 
 /* 
 - returns today's date as DD-MM-YYY

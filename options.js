@@ -388,7 +388,7 @@ async function checkOptionsUnsaved(theTarget){
   const settingsObject = await browser.storage.local.get(defaultSettings);
   // console.log(targetID);
   const targetValueInSettings = getTargetValueFromSettings(targetID, settingsObject);
-  console.log("targetValueInSettings: " + targetValueInSettings)
+  console.log("targetValueInSettings: " + targetValueInSettings);
 
   /*
   - get targetValue from options page. compare to the targetValue from saved settings.
@@ -577,6 +577,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.addEventListener("focusout", (event) => {
       let theTarget = event.target;
       
+      targetEventCaller(theTarget, "url", checkHighlightSaveButton);
+      targetEventCaller(theTarget, "url", saveOscarURL);
       targetEventCaller(theTarget, "date_offset", checkHighlightSaveButton);
       targetEventCaller(theTarget, "check_frequency", checkHighlightSaveButton);
       targetEventCaller(theTarget, "providernum", checkHighlightSaveButton);
@@ -606,6 +608,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   
 });
+
+async function saveOscarURL(theTarget){
+  const targetID = theTarget.id;
+  const settingsObject = await browser.storage.local.get(defaultSettings);
+  // console.log(targetID);
+  const targetValueInSettings = getTargetValueFromSettings(targetID, settingsObject);
+  console.log("full URL: " + targetValueInSettings);
+
+  
+  
+}
 
 
 

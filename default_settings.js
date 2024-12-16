@@ -2,6 +2,7 @@
 const defaultSettings = {
   enabled: true, // default enabled
 
+  url: "",
   date_offset: 2,
   check_frequency: 1,
   provider_number:{
