@@ -1,12 +1,9 @@
-// ==UserScript==
-// @name           EChart_UpdateSidebar
-// @namespace      oscar
-// @include        */casemgmt/forward.jsp?action=view&*
-// @description		Within the E-chart: Update the sidebar with newly created eForms, Consults, Ticklers, Medications when posted.
-// @require   https://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js
-// @grant	   none
-// ==/UserScript==
+
+
 // console.log("hi");
+
+// check frequency, provider list, days in advance
+
 console.log(urlDaySheet(54, 0));
 checkSnapshotAtInterval(1);
 // console.log("hi20");

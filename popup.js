@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector("#daysheet").addEventListener("click", function () {
+    window.open(browser.runtime.getURL("daysheet.html"));
+  });
+
   document.querySelector("#config").addEventListener("click", function () {
     window.open(browser.runtime.getURL("options.html"));
   });
