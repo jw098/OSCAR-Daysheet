@@ -3,9 +3,9 @@
 // console.log("hi");
 
 // check frequency, provider list, days in advance
-
-console.log(urlDaySheet(54, 0));
-checkSnapshotAtInterval(1);
+checkDaysheet();
+// console.log(urlDaySheet(54, 0));
+// checkSnapshotAtInterval(1);
 // console.log("hi20");
 // getDaysheetsForProvider(54, 2);
 
@@ -25,13 +25,51 @@ class ProviderDaysheets {
 	}
 }
 
-function testprint(){
-	console.log("test print");
+
+async function checkDaysheet(){
+	const settingsObject = await browser.storage.local.get();
+	const check_frequency = settingsObject.check_frequency;
+	const date_offset = settingsObject.date_offset;
+	const url = settingsObject.url;
+	const providersObject = settingsObject.provider_number;
+	const providerList = getProviderList(providersObject);
+	console.log(settingsObject);
+	console.log(date_offset);
+	console.log(check_frequency);
+	checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
+	// saveDaysheetsForProviderList(providerList, date_offset, url);
 }
 
+function getProviderList(providersObject){
+	let providerList = [];
+	providerList.push(providersObject.providernum_1);
+	providerList.push(providersObject.providernum_2);
+	providerList.push(providersObject.providernum_3);
+	providerList.push(providersObject.providernum_4);
+	providerList.push(providersObject.providernum_5);
+	providerList.push(providersObject.providernum_6);
+	providerList.push(providersObject.providernum_7);
+	providerList.push(providersObject.providernum_8);
+	providerList.push(providersObject.providernum_9);
+	providerList.push(providersObject.providernum_10);
+	providerList.push(providersObject.providernum_11);
+	providerList.push(providersObject.providernum_12);
+	providerList.push(providersObject.providernum_13);
+	providerList.push(providersObject.providernum_14);
+	providerList.push(providersObject.providernum_15);
+	providerList.push(providersObject.providernum_16);
+	providerList.push(providersObject.providernum_17);
+	providerList.push(providersObject.providernum_18);
+	providerList.push(providersObject.providernum_19);
+	providerList.push(providersObject.providernum_20);
+
+	// console.log(providerList);
+	return providerList.filter(val => val !== "");
+
+}
 
 // get snapshot of daysheets every N hours.
-async function checkSnapshotAtInterval(checkFrequencyInHours){
+async function checkSnapshotAtInterval(checkFrequencyInHours, numDaysInAdvance, url, providerList){
 	const currentDate = new Date();
 	const lastCheckObject = await browser.storage.local.get("daysheet_lastChecked");
 	let lastCheck = lastCheckObject.daysheet_lastChecked;
@@ -48,7 +86,7 @@ async function checkSnapshotAtInterval(checkFrequencyInHours){
 	console.log("checkFrequencyInHours: " + checkFrequencyInHours);
 
 	if (hoursElapsed > checkFrequencyInHours){
-		saveDaysheetsForProviderList([54, 107], 2);
+		saveDaysheetsForProviderList(providerList, numDaysInAdvance, url);
 		lastCheck = currentDate;
 		await browser.storage.local.set({
 			daysheet_lastChecked: lastCheck
@@ -60,10 +98,11 @@ async function checkSnapshotAtInterval(checkFrequencyInHours){
 
 
 
-// int int -> array of array of strings
-async function getDaysheetTableData(providerNum, dayOffset) {
+// int int string -> array of array of strings
+async function getDaysheetTableData(providerNum, dayOffset, url) {
 	// console.log("getDaysheetInfo");
-	const otherPageXMLText = await getXMLHTTP(urlDaySheet(providerNum, dayOffset));
+	urlDaySheet(providerNum, dayOffset, url);
+	const otherPageXMLText = await getXMLHTTP(urlDaySheet(providerNum, dayOffset, url));
 	const otherPageHTML = new DOMParser().parseFromString(otherPageXMLText, "text/html");
 	const tableDataRaw = otherPageHTML.querySelectorAll("body > table:nth-child(2) > tbody:nth-child(1) > tr"); 
 	let tableData = [];
@@ -86,8 +125,8 @@ async function getDaysheetTableData(providerNum, dayOffset) {
 }
 
 
-// int int -> ProviderDaysheets
-async function getDaysheetsForProvider(providerNum, numDaysInAdvance){
+// int int string -> ProviderDaysheets
+async function getDaysheetsForProvider(providerNum, numDaysInAdvance, url){
 	// console.log("getDaysheetsForProvider");
 	if (numDaysInAdvance < 0){
 		numDaysInAdvance = 0;
@@ -95,7 +134,7 @@ async function getDaysheetsForProvider(providerNum, numDaysInAdvance){
 
 	let allDaysheets = [];
 	for (let i = 0; i < numDaysInAdvance+1; i++){
-		let daysheetInfo = await getDaysheetTableData(providerNum, i);
+		let daysheetInfo = await getDaysheetTableData(providerNum, i, url);
 		const theDate = todayPlusOffset(i);
 		const oneDay = new DaySheet(theDate, daysheetInfo);
 		allDaysheets.push(oneDay);
@@ -105,15 +144,14 @@ async function getDaysheetsForProvider(providerNum, numDaysInAdvance){
 }
 
 
-// array(int) int -> void
-async function saveDaysheetsForProviderList(providerNumList, numDaysInAdvance){
+// array(int) int string -> void
+async function saveDaysheetsForProviderList(providerNumList, numDaysInAdvance, url){
 	// console.log("saveDaysheetsForProviderList");
 	providerDataList = []; // array of ProviderDaysheets
 	for (const providerNum of providerNumList){
-		providerData = await getDaysheetsForProvider(providerNum, numDaysInAdvance);
+		providerData = await getDaysheetsForProvider(providerNum, numDaysInAdvance, url);
 		providerDataList.push(providerData);
 	}
-	// console.log(providerDataList);
 
 	await browser.storage.local.set({
 		saveDaysheet: providerDataList
@@ -145,11 +183,11 @@ function todayPlusOffset(dayOffset){
 
 
 // int dayOffset: 0 is for today, 1 for tomorrow, etc.
-function urlDaySheet(providerNum, dayOffset){
+function urlDaySheet(providerNum, dayOffset, url){
 	let targetDate = todayPlusOffset(dayOffset);
 	targetDateString = targetDate.toLocaleDateString('en-CA');	
 	var newURL = getURLOrigin() + "report/displayDaysheet.do?dsmode=all&provider_no=" + providerNum + "&sdate=" + targetDateString + "&edate=" + targetDateString + "&sTime=8&eTime=18";
-
+	// console.log(newURL);
 	return newURL;
 }
 

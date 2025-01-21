@@ -95,7 +95,7 @@ NOTE:
 - if the storedSettings object doesn't match the structure of defaultSettings, storedSettings will have its structure updated to match settingsStructure. (This can happen if options.js and defaultSettings was updated, but the user has an old version still stored in storage).
   - but the values will be from options, instead of from the default values of defaultSettings.
 */
-function save_options() {
+async function save_options() {
 
   chrome.storage.local.set(
     setSettingsFromOptionsPage(defaultSettings),
@@ -119,8 +119,14 @@ function save_options() {
     }
   );
 
+  // reset last check
+  const lastCheck = new Date(-8.64e15); 
+  await browser.storage.local.set({
+    daysheet_lastChecked: lastCheck
+  });
+
   (async function() {
-    console.log(await browser.storage.local.get(defaultSettings));
+    console.log(await browser.storage.local.get());
     // console.log(await browser.storage.local.get("tcDefaults"));
   })();
 
@@ -616,7 +622,7 @@ async function saveOscarURL(theTarget){
   const targetValueInSettings = getTargetValueFromSettings(targetID, settingsObject);
   console.log("full URL: " + targetValueInSettings);
 
-  
+
   
 }
 

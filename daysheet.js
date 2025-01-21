@@ -4,6 +4,7 @@ console.log("hi");
 // saveDaysheetsForProviderList([54, 107], 2);
 // checkSnapshotAtInterval(1);
 // getDaysheetSettings();
+// checkDaysheet();
 displayDaysheets();
 // just for testing
 async function getDaysheetSettings(){
@@ -18,6 +19,7 @@ async function getDaysheetSettings(){
 async function displayDaysheets(){
   const saveDaysheetsObject = await browser.storage.local.get("saveDaysheet");
   const providerDaysheetsList = saveDaysheetsObject.saveDaysheet;
+  console.log(providerDaysheetsList);
   // for (let providerDaysheets of providerDaysheetsList){
   //   const providerNum = providerDaysheets.providerNum;
   //   const daysheetList = providerDaysheets.daysheets;
