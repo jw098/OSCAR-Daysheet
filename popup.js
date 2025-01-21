@@ -51,13 +51,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#enable").classList.toggle("hide", enabled);
     document.querySelector("#disable").classList.toggle("hide", !enabled);
 
-    const suffix = `${enabled ? "" : "_disabled"}.png`;
-    chrome.browserAction.setIcon({
-      path: {
-        "16": "icons/OSCAR_16px" + suffix,
-        "32": "icons/OSCAR_32px" + suffix
-      }
-    });
+    // const suffix = `${enabled ? "" : "_disabled"}.png`;
+    // chrome.browserAction.setIcon({
+    //   path: {
+    //     "16": "icons/OSCAR_16px" + suffix,
+    //     "32": "icons/OSCAR_32px" + suffix
+    //   }
+    // });
   }
 
   function settingsSavedReloadMessage(enabled) {

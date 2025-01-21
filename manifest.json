@@ -14,8 +14,8 @@
         ]
       },
     "icons":{
-        "48": "icons/notepad-icon48.png",
-        "96": "icons/notepad-icon96.png"
+        "48": "icons/notepad_48.png",
+        "96": "icons/notepad_96.png"
     },
     "browser_specific_settings": {
         "gecko": {
@@ -24,8 +24,8 @@
     },
     "browser_action": {
       "default_icon": {
-        "16": "icons/notepad-icon16.png",
-        "32": "icons/notepad-icon32.png"
+        "16": "icons/notepad_16.png",
+        "32": "icons/notepad_32.png"
       },
       "default_popup": "popup.html"
     },
