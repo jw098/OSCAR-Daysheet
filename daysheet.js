@@ -7,6 +7,8 @@ console.log("hi");
 // checkDaysheet();
 
 loadProviderList();
+loadDates();
+
 displayDaysheets();
 // just for testing
 async function getDaysheetSettings(){
@@ -25,6 +27,22 @@ async function loadProviderList(){
     option.value = provider_num;
     option.innerText = provider_num;
     providerListNode.appendChild(option);
+  }
+}
+
+async function loadDates(){
+  const dateOffsetObject = await browser.storage.local.get("date_offset"); 
+  const maxDateOffset = dateOffsetObject.date_offset;
+  const dateListNode = document.getElementById("date_list");
+
+  for (let date_offset = 0; date_offset < maxDateOffset+1; date_offset++){
+    const option = document.createElement("option");
+    const targetDate = todayPlusOffset(date_offset);
+    const targetDateString = targetDate.toLocaleDateString('en-CA');	
+
+    option.value = targetDateString;
+    option.innerText = targetDateString;
+    dateListNode.appendChild(option);
   }
 }
 
