@@ -40,6 +40,7 @@ async function checkDaysheet(){
 	// saveDaysheetsForProviderList(providerList, date_offset, url);
 }
 
+// stored_settings.provider_number -> list of String
 function getProviderList(providersObject){
 	let providerList = [];
 	providerList.push(providersObject.providernum_1);

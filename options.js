@@ -347,12 +347,12 @@ function greyoutExtensionIcon(){
   const suffix = `${enabled ? "" : "_disabled"}.png`;
   // console.log(enabled);
   // console.log(suffix);
-  chrome.browserAction.setIcon({
-    path: {
-      "16": "icons/OSCAR_16px" + suffix,
-      "32": "icons/OSCAR_32px" + suffix
-    }
-  });
+  // chrome.browserAction.setIcon({
+  //   path: {
+  //     "16": "icons/OSCAR_16px" + suffix,
+  //     "32": "icons/OSCAR_32px" + suffix
+  //   }
+  // });
 }
 
 ///////////////////////////////////////////////////////////

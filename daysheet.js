@@ -5,6 +5,8 @@ console.log("hi");
 // checkSnapshotAtInterval(1);
 // getDaysheetSettings();
 // checkDaysheet();
+
+loadProviderList();
 displayDaysheets();
 // just for testing
 async function getDaysheetSettings(){
@@ -14,6 +16,17 @@ async function getDaysheetSettings(){
   console.log(await browser.storage.local.get("saveDaysheet"));
 }
 
+async function loadProviderList(){
+  const providersObject = await browser.storage.local.get("provider_number"); 
+  const providerList = getProviderList(providersObject.provider_number);
+  const providerListNode = document.getElementById("provider_list");
+  for (let provider_num of providerList){
+    const option = document.createElement("option");
+    option.value = provider_num;
+    option.innerText = provider_num;
+    providerListNode.appendChild(option);
+  }
+}
 
 
 async function displayDaysheets(){
