@@ -56,6 +56,10 @@ async function loadDates(){
 async function displayDaysheets(){
   const saveDaysheetsObject = await browser.storage.local.get("saveDaysheet");
   const providerDaysheetsList = saveDaysheetsObject.saveDaysheet;
+  if (providerDaysheetsList == null){
+    console.log("Daysheet data haven't been fetched yet.");
+    return;
+  }
   // console.log(providerDaysheetsList);
 
   const selected_provider_node = document.getElementById("selected_provider");
@@ -68,6 +72,10 @@ async function displayDaysheets(){
     const providerNum = providerDaysheets.providerNum;
     if (providerNum == selected_provider_num){
       const daysheetList = providerDaysheets.daysheets;
+      if (daysheetList == null){
+        displayNullDaysheet();
+        return;
+      }
       for (let daysheet of daysheetList){
         const date = daysheet.date;
         const date_string = date.toLocaleDateString('en-CA');	
@@ -81,6 +89,18 @@ async function displayDaysheets(){
   // console.log(table_to_display);
   displayOneDaysheet(table_to_display);
 
+}
+
+function displayNullDaysheet(){
+  const section = document.getElementById("displayed_table");
+  // first remove existing tables 
+  while (section.firstChild) {
+    section.removeChild(section.firstChild);
+  }
+
+  const label = document.createElement('label');
+  label.textContent = "No daysheet data to display. Likely invalid provider number."
+  section.appendChild(label);
 }
 
 async function displayOneDaysheet(table){
