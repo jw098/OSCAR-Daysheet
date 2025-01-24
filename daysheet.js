@@ -33,12 +33,13 @@ async function loadProviderList(){
 
 async function loadDates(){
   const dateOffsetObject = await browser.storage.local.get("date_offset"); 
-  const maxDateOffset = dateOffsetObject.date_offset;
+  const maxDateOffset = Number(dateOffsetObject.date_offset);
+  // console.log(maxDateOffset);
   const dateListNode = document.getElementById("selected_date");
 
-  for (let date_offset = 0; date_offset < maxDateOffset+1; date_offset++){
+  for (let offset = 0; offset < (maxDateOffset+1); offset++){
     const option = document.createElement("option");
-    const targetDate = todayPlusOffset(date_offset);
+    const targetDate = todayPlusOffset(offset);
     const targetDateString = targetDate.toLocaleDateString('en-CA');	
 
     option.value = targetDateString;
