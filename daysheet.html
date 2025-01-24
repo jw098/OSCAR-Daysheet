@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>OSCAR EMR Daysheet: Options</title>
-    <!-- <link rel="stylesheet" href="options.css" /> -->
+    <link rel="stylesheet" href="daysheet.css" />
     <script src="default_settings.js"></script>
     <script src="contentscripts/utils.js"></script>
     <!-- <script src="contentscripts/SaveDaysheet.js"></script> -->
@@ -28,15 +28,18 @@
         <button id="uncheckAllShortcuts" >Uncheck all keyboard shortcuts</button>
       </div>
     </section> -->
+    <section>
+      <label id="disabled_warning" class="">Save Daysheet extension disabled. Go to settings to re-enable this extension.</label>
+    </section>
 
     <section>
-      <label>Select provider: </label>
+      <label id="selected_provider_label">Select provider: </label>
       <select id="selected_provider">
       </select>
     </section>
 
     <section>
-      <label>Select date: </label>
+      <label id="selected_date_label">Select date: </label>
       <select id="selected_date">
       </select>
     </section>

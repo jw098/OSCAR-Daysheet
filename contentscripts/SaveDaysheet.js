@@ -27,21 +27,27 @@ class ProviderDaysheets {
 
 
 async function checkDaysheet(){
-	const settingsObject = await browser.storage.local.get();
-	const check_frequency = settingsObject.check_frequency;
-	const date_offset = settingsObject.date_offset;
-	const url = settingsObject.url;
-	const providersObject = settingsObject.provider_number;
-	const providerList = getProviderList(providersObject);
-	console.log(settingsObject);
-	console.log(date_offset);
-	console.log(check_frequency);
-	try{
-		await checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
-	}catch(e){
-		console.error(e);
-	}finally{
-		console.log(await browser.storage.local.get("saveDaysheet"));
+	const isEnabled = await browser.storage.local.get('enabled');
+	if(!isEnabled.enabled){
+		return;
+	}
+	else {
+		const settingsObject = await browser.storage.local.get();
+		const check_frequency = settingsObject.check_frequency;
+		const date_offset = settingsObject.date_offset;
+		const url = settingsObject.url;
+		const providersObject = settingsObject.provider_number;
+		const providerList = getProviderList(providersObject);
+		console.log(settingsObject);
+		console.log(date_offset);
+		console.log(check_frequency);
+		try{
+			await checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
+		}catch(e){
+			console.error(e);
+		}finally{
+			console.log(await browser.storage.local.get("saveDaysheet"));
+		}
 	}
 }
 

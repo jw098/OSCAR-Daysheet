@@ -1,10 +1,35 @@
 
 
+checkEnabled_Daysheets();
+async function checkEnabled_Daysheets(){
+	const isEnabledObject = await browser.storage.local.get('enabled');
+  const isEnabled = isEnabledObject.enabled;
+	console.log("Global enabled? " + isEnabled);
+  const disabled_warning = document.getElementById("disabled_warning");
+  const selected_provider_label = document.getElementById("selected_provider_label");
+  const selected_provider = document.getElementById("selected_provider");
+  const selected_date_label = document.getElementById("selected_date_label");
+  const selected_date = document.getElementById("selected_date");
 
-loadProviderList();
-loadDates();
-displayDaysheets();
-getDaysheetSettings();
+  disabled_warning.classList.toggle("hide", isEnabled);
+  selected_provider_label.classList.toggle("hide", !isEnabled);
+  selected_provider.classList.toggle("hide", !isEnabled);
+  selected_date.classList.toggle("hide", !isEnabled);
+  selected_date_label.classList.toggle("hide", !isEnabled);
+
+	if(!isEnabled){
+		return;
+	}
+	else {
+
+    await loadProviderList();
+    await loadDates();
+    await displayDaysheets();
+    getDaysheetSettings();
+	}
+}
+
+
 
 // just for testing
 async function getDaysheetSettings(){
