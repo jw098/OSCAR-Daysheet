@@ -4,15 +4,15 @@
 loadProviderList();
 loadDates();
 displayDaysheets();
-
+getDaysheetSettings();
 
 // just for testing
-// async function getDaysheetSettings(){
-//   const lastCheckObject = await browser.storage.local.get("daysheet_lastChecked");
-// 	let lastCheck = lastCheckObject.daysheet_lastChecked;
-// 	console.log("Last check: " + lastCheck);
-//   console.log(await browser.storage.local.get("saveDaysheet"));
-// }
+async function getDaysheetSettings(){
+  const lastCheckObject = await browser.storage.local.get("daysheet_lastChecked");
+	let lastCheck = lastCheckObject.daysheet_lastChecked;
+	console.log("Last check: " + lastCheck);
+  console.log(await browser.storage.local.get("saveDaysheet"));
+}
 
 async function loadProviderList(){
   const providersObject = await browser.storage.local.get("provider_number"); 
@@ -57,6 +57,7 @@ async function displayDaysheets(){
   const saveDaysheetsObject = await browser.storage.local.get("saveDaysheet");
   const providerDaysheetsList = saveDaysheetsObject.saveDaysheet;
   if (providerDaysheetsList == null){
+    displayDaysheetNotFetchedWarning();
     console.log("Daysheet data haven't been fetched yet.");
     return;
   }
@@ -89,6 +90,18 @@ async function displayDaysheets(){
   // console.log(table_to_display);
   displayOneDaysheet(table_to_display);
 
+}
+
+function displayDaysheetNotFetchedWarning(){
+  const section = document.getElementById("displayed_table");
+  // first remove existing tables 
+  while (section.firstChild) {
+    section.removeChild(section.firstChild);
+  }
+
+  const label = document.createElement('label');
+  label.textContent = "Daysheet data haven't been fetched yet. Load/refresh the OSCAR Scheduled page."
+  section.appendChild(label);
 }
 
 function displayNullDaysheet(){

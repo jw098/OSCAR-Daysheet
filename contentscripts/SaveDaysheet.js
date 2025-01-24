@@ -37,9 +37,11 @@ async function checkDaysheet(){
 	console.log(date_offset);
 	console.log(check_frequency);
 	try{
-		checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
+		await checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
 	}catch(e){
 		console.error(e);
+	}finally{
+		console.log(await browser.storage.local.get("saveDaysheet"));
 	}
 }
 
@@ -87,7 +89,6 @@ async function checkSnapshotAtInterval(checkFrequencyInHours, numDaysInAdvance, 
 		}
 	}
 
-	console.log(await browser.storage.local.get("saveDaysheet"));
 }
 
 
