@@ -36,38 +36,14 @@ async function checkDaysheet(){
 	console.log(settingsObject);
 	console.log(date_offset);
 	console.log(check_frequency);
-	checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
-	// saveDaysheetsForProviderList(providerList, date_offset, url);
+	try{
+		checkSnapshotAtInterval(check_frequency, date_offset, url, providerList);
+	}catch(e){
+		console.error(e);
+	}
 }
 
-// stored_settings.provider_number -> list of String
-function getProviderList(providersObject){
-	let providerList = [];
-	providerList.push(providersObject.providernum_1);
-	providerList.push(providersObject.providernum_2);
-	providerList.push(providersObject.providernum_3);
-	providerList.push(providersObject.providernum_4);
-	providerList.push(providersObject.providernum_5);
-	providerList.push(providersObject.providernum_6);
-	providerList.push(providersObject.providernum_7);
-	providerList.push(providersObject.providernum_8);
-	providerList.push(providersObject.providernum_9);
-	providerList.push(providersObject.providernum_10);
-	providerList.push(providersObject.providernum_11);
-	providerList.push(providersObject.providernum_12);
-	providerList.push(providersObject.providernum_13);
-	providerList.push(providersObject.providernum_14);
-	providerList.push(providersObject.providernum_15);
-	providerList.push(providersObject.providernum_16);
-	providerList.push(providersObject.providernum_17);
-	providerList.push(providersObject.providernum_18);
-	providerList.push(providersObject.providernum_19);
-	providerList.push(providersObject.providernum_20);
 
-	// console.log(providerList);
-	return providerList.filter(val => val !== "");
-
-}
 
 // get snapshot of daysheets every N hours.
 async function checkSnapshotAtInterval(checkFrequencyInHours, numDaysInAdvance, url, providerList){
@@ -87,11 +63,28 @@ async function checkSnapshotAtInterval(checkFrequencyInHours, numDaysInAdvance, 
 	console.log("checkFrequencyInHours: " + checkFrequencyInHours);
 
 	if (hoursElapsed > checkFrequencyInHours){
-		saveDaysheetsForProviderList(providerList, numDaysInAdvance, url);
-		lastCheck = currentDate;
-		await browser.storage.local.set({
-			daysheet_lastChecked: lastCheck
-		});
+		const providerDataList = await getDaysheetsForProviderList(providerList, numDaysInAdvance, url);
+
+		// check if all the daysheet data is null
+		let all_data_null = true;
+		for (const providerData of providerDataList){
+			if (providerData.daysheets != null){
+				all_data_null = false;
+			}
+		}
+
+		if (all_data_null){
+			throw new Error("All ProviderDaysheets have null daysheets.");
+		}else{
+			await browser.storage.local.set({
+				saveDaysheet: providerDataList
+			});	
+	
+			lastCheck = currentDate;
+			await browser.storage.local.set({
+				daysheet_lastChecked: lastCheck
+			});			
+		}
 	}
 
 	console.log(await browser.storage.local.get("saveDaysheet"));
@@ -132,48 +125,38 @@ async function getDaysheetsForProvider(providerNum, numDaysInAdvance, url){
 	if (numDaysInAdvance < 0){
 		numDaysInAdvance = 0;
 	}
-
 	let allDaysheets = [];
-	for (let i = 0; i < numDaysInAdvance+1; i++){
-		let daysheetInfo = await getDaysheetTableData(providerNum, i, url);
-		const theDate = todayPlusOffset(i);
-		const oneDay = new DaySheet(theDate, daysheetInfo);
-		allDaysheets.push(oneDay);
+	try {
+		for (let i = 0; i < numDaysInAdvance+1; i++){
+			let daysheetInfo = await getDaysheetTableData(providerNum, i, url);
+			const theDate = todayPlusOffset(i);
+			const oneDay = new DaySheet(theDate, daysheetInfo);
+			allDaysheets.push(oneDay);
+		}
+	}catch{
+		allDaysheets = null;
 	}
 
 	return new ProviderDaysheets(providerNum, allDaysheets);
 }
 
 
-// array(int) int string -> void
-async function saveDaysheetsForProviderList(providerNumList, numDaysInAdvance, url){
+// array(int) int string -> array of ProviderDaysheets
+async function getDaysheetsForProviderList(providerNumList, numDaysInAdvance, url){
 	// console.log("saveDaysheetsForProviderList");
-	providerDataList = []; // array of ProviderDaysheets
+	let providerDataList = []; // array of ProviderDaysheets
 	for (const providerNum of providerNumList){
-		providerData = await getDaysheetsForProvider(providerNum, numDaysInAdvance, url);
+		const providerData = await getDaysheetsForProvider(providerNum, numDaysInAdvance, url);
 		providerDataList.push(providerData);
 	}
 
-	await browser.storage.local.set({
-		saveDaysheet: providerDataList
-	});	
+	return providerDataList;
 }
 
 
 
 
 
-/////////////////////////////////////////////////////
-// Date
-/////////////////////////////////////////////////////
-
-
-// int -> Date
-function todayPlusOffset(dayOffset){
-	let targetDate = new Date();
-	targetDate.setDate(targetDate.getDate()+dayOffset);
-	return targetDate;
-}
 
 
 

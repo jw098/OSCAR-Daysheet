@@ -46,6 +46,35 @@ function returnEmptyKeybinding(){
 	};
   }
 
+  // stored_settings.provider_number -> list of String
+function getProviderList(providersObject){
+	let providerList = [];
+	providerList.push(providersObject.providernum_1);
+	providerList.push(providersObject.providernum_2);
+	providerList.push(providersObject.providernum_3);
+	providerList.push(providersObject.providernum_4);
+	providerList.push(providersObject.providernum_5);
+	providerList.push(providersObject.providernum_6);
+	providerList.push(providersObject.providernum_7);
+	providerList.push(providersObject.providernum_8);
+	providerList.push(providersObject.providernum_9);
+	providerList.push(providersObject.providernum_10);
+	providerList.push(providersObject.providernum_11);
+	providerList.push(providersObject.providernum_12);
+	providerList.push(providersObject.providernum_13);
+	providerList.push(providersObject.providernum_14);
+	providerList.push(providersObject.providernum_15);
+	providerList.push(providersObject.providernum_16);
+	providerList.push(providersObject.providernum_17);
+	providerList.push(providersObject.providernum_18);
+	providerList.push(providersObject.providernum_19);
+	providerList.push(providersObject.providernum_20);
+
+	// console.log(providerList);
+	return providerList.filter(val => val !== "");
+
+}
+
 /*
 - returns a promise that returns the xmlhttp response text
 */
@@ -60,11 +89,13 @@ function getXMLHTTP(theURL){
       		} 
 			else {
 				console.trace();
+				console.log("File not found: " + theURL);
 				reject(new Error(theURL + "File not Found"));
       		}
 		};
 		xmlhttp.onerror = function () {
 			console.trace();
+			console.log("File not found: " + theURL);
 			reject(new Error(theURL + "File not Found"));
 		};
 		xmlhttp.send();
@@ -131,4 +162,16 @@ function removeAlreadyExistingElementAndBrTag(element){
 		}
 		element.remove();
 	}
+}
+
+/////////////////////////////////////////////////////
+// Date
+/////////////////////////////////////////////////////
+
+
+// int -> Date
+function todayPlusOffset(dayOffset){
+	let targetDate = new Date();
+	targetDate.setDate(targetDate.getDate()+dayOffset);
+	return targetDate;
 }
