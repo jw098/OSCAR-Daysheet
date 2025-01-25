@@ -7,21 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
     window.open(browser.runtime.getURL("options.html"));
   });
 
-  document.querySelector("#about").addEventListener("click", function () {
-    window.open("https://github.com/jw098/OSCAR-EMR-Shortcuts");
-  });
-
-  document.querySelector("#firefox").addEventListener("click", function () {
-    window.open("https://addons.mozilla.org/en-US/firefox/addon/oscar-emr-shortcuts/");
-  });
-
   document.querySelector("#feedback").addEventListener("click", function () {
-    window.open("https://github.com/jw098/OSCAR-EMR-Shortcuts/issues");
+    window.open("https://github.com/jw098/OSCAR-Daysheet/issues");
   });
 
-  document.querySelector("#readme").addEventListener("click", function () {
-    window.open("https://github.com/jw098/OSCAR-EMR-Shortcuts/blob/main/README.md");
+  document.querySelector("#about").addEventListener("click", function () {
+    window.open("https://github.com/jw098/OSCAR-Daysheet");
   });
+
+  // document.querySelector("#firefox").addEventListener("click", function () {
+  //   window.open("https://addons.mozilla.org/en-US/firefox/addon/");
+  // });
 
   document.querySelector("#enable").addEventListener("click", function () {
     toggleEnabled(true, settingsSavedReloadMessage);
