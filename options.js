@@ -192,9 +192,9 @@ function restore_options_from_settings(settingsObject) {
   removeAllAddable();
 
   restoreOptionsPageFromSettings(settingsObject);
-  findAllShortcutConflicts(settingsObject);
   greyoutExtensionIcon();
 
+  document.getElementById("saveHeader").classList.toggle("optionsUnsaved", true);
   /* 
   - for some reason, remove() or insertBefore() sometimes causes the page to scroll down.
   - my guess is that when restore options restores the array of buttons, it gets confused and saves the wrong Y scroll position . And so when the user manually clicks the Add New or Remove buttons, it scrolls to the wrong Y scroll position.
